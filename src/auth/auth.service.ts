@@ -116,8 +116,9 @@ export class AuthService {
     const userBase = new User();
     userBase.id = uuidv4();
     userBase.state = 'ACTIVO';
-    userBase.firstName = 'Usuario';
-    userBase.lastName = 'Admin';
+    userBase.firstName = 'USUARIO';
+    userBase.lastName = 'ADMIN';
+    userBase.fullName = 'USUARIO ADMIN';
     userBase.email = 'adminuser@admin.com';
     userBase.password = hashedPassword;
     userBase.role = roleData;

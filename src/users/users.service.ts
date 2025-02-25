@@ -18,6 +18,7 @@ export class UsersService {
   async createUser(userData: User): Promise<any> {
     try {
       if (userData) {
+        
         // Verificar si ya existe un usuario con el numero de identificación
         const existingUser = await this.usersRepository
           .createQueryBuilder('usuario')
@@ -29,6 +30,9 @@ export class UsersService {
         }
 
         const hashedPassword = await bcrypt.hash(userData.password, 10);
+        userData.firstName = userData.firstName.toUpperCase();
+        userData.lastName = userData.lastName.toUpperCase();
+        userData.fullName = `${userData.firstName} ${userData.lastName}`;
 
         const newUser = this.usersRepository.create({
           ...userData,
@@ -37,6 +41,7 @@ export class UsersService {
           state: 'ACTIVO',
           status: 'DISPONIBLE'
         });
+
         const createdUser = await this.usersRepository.save(newUser);
 
         if (createdUser) {
